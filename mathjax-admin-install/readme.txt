@@ -1,20 +1,6 @@
-discourse-mathjax
-=================
+Install the following this as an custom header in your admin panel:
 
-Mathjax plugin for [Discourse](http://discourse.org).
 
-Installation
-============
-* Place the map `mathjax` in the map `discourse/plugins`
-* Run `bundle exec rake assets:precompile`
-* Restart you services
-
-Installation (admin)
-============
-* Place the map `mathjax-admin-install` in the map `discourse/plugins`
-* Run `bundle exec rake assets:precompile`
-* Install the following as an custom header in your admin panel:
-```
 <script>
     (function () {
         Discourse.addInitializer(function () {
@@ -80,4 +66,3 @@ Installation (admin)
         });
     })();
 </script>
-```
