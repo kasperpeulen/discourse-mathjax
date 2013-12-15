@@ -11,7 +11,7 @@ register_javascript <<JS
 
 MathJax.Hub.Config({ "HTML-CSS": { 
 	preferredFont: "TeX", 
-	availableFonts: ["STIX","TeX"], 
+	availableFonts: ["TeX"], 
 	linebreaks: { automatic:true }, 
 	EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50) },
         tex2jax: { 
