@@ -14,6 +14,7 @@ Installation (admin)
 * Place the map `mathjax-admin-install` in the map `discourse/plugins`
 * Run `bundle exec rake assets:precompile`
 * Install the following as an custom header in your admin panel:
+
 ```
 <script>
     (function () {
