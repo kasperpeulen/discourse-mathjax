@@ -6,8 +6,8 @@ register_asset('javascripts/tex_dialect.js', :server_side)
 register_javascript <<JS 
 
   Discourse.addInitializer(function () {
-
-    $LAB.script('http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML').wait(function () {
+    var mathjaxUrl = (window.location.protocol === 'https:') ? 'https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js' : 'http://cdn.mathjax.org/mathjax/latest/MathJax.js';
+    $LAB.script(mathjaxUrl + '?config=TeX-AMS-MML_HTMLorMML').wait(function () {
 
       MathJax.Hub.Config({
         "HTML-CSS": {
