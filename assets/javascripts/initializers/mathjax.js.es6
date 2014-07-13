@@ -56,11 +56,20 @@ export default {
             var applyBody = function () {
                 MathJax.Hub.Queue(["Typeset", MathJax.Hub, "topic"]);
             };
+	
 
-            Discourse.PostView.prototype.on("postViewInserted", applyBody);
-            Discourse.ComposerView.prototype.on("previewRefreshed", applyPreview);
+	    var decorate = function(klass, f, evt) {
+	      klass.reopen({
+        	_applyMathjax: function($elem) {
+	          f($elem);
+        	}.on(evt)
+	      });
+	    };
 
-        });
-
+	    decorate(Discourse.PostView, applyBody, 'postViewInserted');
+	    decorate(container.lookupFactory('view:composer'), applyPreview, 'previewRefreshed');
+	    decorate(container.lookupFactory('view:embedded-post'), applyPreview, 'previewRefreshed');
+	    decorate(Discourse.UserStreamView, applyBody, 'didInsertElement');
+	});
     }
 }
