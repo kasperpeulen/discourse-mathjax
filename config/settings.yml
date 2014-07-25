@@ -1,0 +1,4 @@
+mathjax_plugin:
+  enable_mathjax_plugin:
+    client: true
+    default: false
