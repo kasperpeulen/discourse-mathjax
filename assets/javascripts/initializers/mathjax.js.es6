@@ -6,7 +6,7 @@ export default {
         if (Discourse.SiteSettings.enable_mathjax_plugin == false) {
             return;
         }
-        var mathjaxUrl = (window.location.protocol === 'https:') ? 'https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js' : 'http://cdn.mathjax.org/mathjax/latest/MathJax.js';
+        var mathjaxUrl = (window.location.protocol === 'https:') ? 'https://cdn.mathjax.org/mathjax/latest/MathJax.js' : 'http://cdn.mathjax.org/mathjax/latest/MathJax.js';
         $LAB.script(mathjaxUrl + '?config=TeX-AMS-MML_HTMLorMML').wait(function () {
 
             MathJax.Hub.Config({
