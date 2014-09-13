@@ -1,9 +1,11 @@
 export default {
 
     name: 'discourse-mathjax',
+    after: 'inject-objects',
 
     initialize: function (container) {
-        if (Discourse.SiteSettings.enable_mathjax_plugin == false) {
+        var siteSettings = container.lookup('site-settings:main');
+        if (siteSettings.enable_mathjax_plugin == false) {
             return;
         }
         var mathjaxUrl = (window.location.protocol === 'https:') ? 'https://cdn.mathjax.org/mathjax/latest/MathJax.js' : 'http://cdn.mathjax.org/mathjax/latest/MathJax.js';

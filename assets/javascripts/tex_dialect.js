@@ -1,4 +1,4 @@
-if (Discourse.SiteSettings.enable_mathjax_plugin == true) {
+(function() {
     Discourse.Dialect.inlineBetween({
         start: '\\(',
         stop: '\\)',
@@ -25,8 +25,8 @@ if (Discourse.SiteSettings.enable_mathjax_plugin == true) {
         return '$$' + contents + '$$';
         }
     });
- 
- 
+
+
     Discourse.Dialect.inlineBetween({
         start: '$',
         stop: '$',
@@ -63,4 +63,4 @@ if (Discourse.SiteSettings.enable_mathjax_plugin == true) {
             return 'ˊ' + contents + 'ˊ';
         }
     });
-}
+})();
