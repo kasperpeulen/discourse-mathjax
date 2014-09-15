@@ -63,7 +63,7 @@ export default {
             };
 
             Discourse.PostView.prototype.on("postViewInserted", applyBody);
-            Discourse.ComposerView.prototype.on("previewRefreshed", applyPreview);
+            container.lookupFactory('view:composer').prototype.on("previewRefreshed", applyPreview);
 
         });
 
