@@ -2,3 +2,9 @@ mathjax_plugin:
   enable_mathjax_plugin:
     client: true
     default: false
+  mathjax_http_url:
+    client: true
+    default: http://cdn.mathjax.org/mathjax/latest/MathJax.js
+  mathjax_https_url:
+    client: true
+    default: https://cdn.mathjax.org/mathjax/latest/MathJax.js
