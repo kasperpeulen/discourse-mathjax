@@ -8,8 +8,7 @@ export default {
         if (siteSettings.enable_mathjax_plugin == false) {
             return;
         }
-        var mathjaxUrl = (window.location.protocol === 'https:') ? 'https://cdn.mathjax.org/mathjax/latest/MathJax.js' : 'http://cdn.mathjax.org/mathjax/latest/MathJax.js';
-        $LAB.script(mathjaxUrl + '?config=TeX-AMS-MML_HTMLorMML').wait(function () {
+        $LAB.script(siteSettings.mathjax_url + '?config=' + siteSettings.mathjax_config).wait(function () {
 
             MathJax.Hub.Config({
                 "HTML-CSS": {

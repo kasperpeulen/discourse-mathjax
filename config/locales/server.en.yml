@@ -1,3 +1,5 @@
 en:
   site_settings:
     enable_mathjax_plugin: 'Enable MathJax plugin'
+    mathjax_url: 'MathJax URL'
+    mathjax_config: 'MathJax config setting'
