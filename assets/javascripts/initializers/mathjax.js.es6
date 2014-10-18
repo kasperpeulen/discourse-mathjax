@@ -1,10 +1,14 @@
 export default {
 
     name: 'discourse-mathjax',
+    after: 'inject-objects',
 
     initialize: function (container) {
-        var mathjaxUrl = '//cdn.mathjax.org/mathjax/latest/MathJax.js';
-        $LAB.script(mathjaxUrl + '?config=TeX-AMS-MML_HTMLorMML').wait(function () {
+        var siteSettings = container.lookup('site-settings:main');
+        if (siteSettings.enable_mathjax_plugin == false) {
+            return;
+        }
+        $LAB.script(siteSettings.mathjax_url + '?config=' + siteSettings.mathjax_config).wait(function () {
 
             MathJax.Hub.Config({
                 "HTML-CSS": {
@@ -58,7 +62,7 @@ export default {
             };
 
             Discourse.PostView.prototype.on("postViewInserted", applyBody);
-            Discourse.ComposerView.prototype.on("previewRefreshed", applyPreview);
+            container.lookupFactory('view:composer').prototype.on("previewRefreshed", applyPreview);
 
         });
 
