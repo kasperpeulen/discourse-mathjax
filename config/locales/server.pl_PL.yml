@@ -1,0 +1,3 @@
+pl_PL:
+  site_settings:
+    enable_mathjax_plugin: 'Włącz wtyczkę MathJax'

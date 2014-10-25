@@ -1,10 +1,14 @@
 export default {
 
     name: 'discourse-mathjax',
+    after: 'inject-objects',
 
     initialize: function (container) {
-        var mathjaxUrl = '//cdn.mathjax.org/mathjax/latest/MathJax.js';
-        $LAB.script(mathjaxUrl + '?config=TeX-AMS-MML_HTMLorMML').wait(function () {
+        var siteSettings = container.lookup('site-settings:main');
+        if (siteSettings.enable_mathjax_plugin == false) {
+            return;
+        }
+        $LAB.script(siteSettings.mathjax_url + '?config=' + siteSettings.mathjax_config).wait(function () {
 
             MathJax.Hub.Config({
                 "HTML-CSS": {
@@ -58,18 +62,10 @@ export default {
             };
 	
 
-	    var decorate = function(klass, f, evt) {
-	      klass.reopen({
-        	_applyMathjax: function($elem) {
-	          f($elem);
-        	}.on(evt)
-	      });
-	    };
-
-	    decorate(Discourse.PostView, applyBody, 'postViewInserted');
-	    decorate(container.lookupFactory('view:composer'), applyPreview, 'previewRefreshed');
-	    decorate(container.lookupFactory('view:embedded-post'), applyPreview, 'previewRefreshed');
-	    decorate(Discourse.UserStreamView, applyBody, 'didInsertElement');
+            Discourse.PostView.prototype.on("postViewInserted", applyBody);
+            container.lookupFactory('view:composer').prototype.on("previewRefreshed", applyPreview);
+            Discourse.UserStreamView.prototype.on('didInsertElement', applyBody);
+         
 	});
     }
 }
