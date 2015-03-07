@@ -1,3 +1,5 @@
+import { decorateCooked } from 'discourse/lib/plugin-api';
+
 export default {
 
     name: 'discourse-mathjax',
@@ -61,7 +63,7 @@ export default {
                 MathJax.Hub.Queue(["Typeset", MathJax.Hub, "topic"]);
             };
 
-            Discourse.PostView.prototype.on("postViewInserted", applyBody);
+            decorateCooked(container, applyBody);
             container.lookupFactory('view:composer').prototype.on("previewRefreshed", applyPreview);
 
         });
