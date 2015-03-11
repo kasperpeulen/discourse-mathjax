@@ -1,16 +1,33 @@
+/* global MathJax */
+
 import { decorateCooked } from 'discourse/lib/plugin-api';
+import loadScript from 'discourse/lib/load-script';
+
+function applyBody() {
+  MathJax.Hub.Queue(["Typeset", MathJax.Hub, "topic"]);
+}
+
+function applyPreview() {
+  MathJax.Hub.Queue(["Typeset", MathJax.Hub, "wmd-preview"]);
+  // if the caret is on the last line ensure preview scrolled to bottom
+  const caretPosition = Discourse.Utilities.caretPosition(this.wmdInput[0]);
+  if (!this.wmdInput.val().substring(caretPosition).match(/\\n/)) {
+    const $wmdPreview = $('#wmd-preview');
+    if ($wmdPreview.is(':visible')) {
+      $wmdPreview.scrollTop($wmdPreview[0].scrollHeight);
+    }
+  }
+}
 
 export default {
-
   name: 'discourse-mathjax',
   after: 'inject-objects',
 
   initialize: function (container) {
-    var siteSettings = container.lookup('site-settings:main');
-    if (siteSettings.enable_mathjax_plugin == false) {
-      return;
-    }
-    $LAB.script(siteSettings.mathjax_url + '?config=' + siteSettings.mathjax_config).wait(function () {
+    const siteSettings = container.lookup('site-settings:main');
+    if (!siteSettings.enable_mathjax_plugin) { return; }
+
+    loadScript(siteSettings.mathjax_url + '?config=' + siteSettings.mathjax_config).then(function () {
 
       MathJax.Hub.Config({
         "HTML-CSS": {
@@ -47,25 +64,8 @@ export default {
         messageStyle: "none"
       });
 
-      var applyPreview = function () {
-        MathJax.Hub.Queue(["Typeset", MathJax.Hub, "wmd-preview"]);
-        // if the caret is on the last line ensure preview scrolled to bottom
-        var caretPosition = Discourse.Utilities.caretPosition(this.wmdInput[0]);
-        if (!this.wmdInput.val().substring(caretPosition).match(/\\n/)) {
-          var $wmdPreview = $('#wmd-preview');
-          if ($wmdPreview.is(':visible')) {
-            $wmdPreview.scrollTop($wmdPreview[0].scrollHeight);
-          }
-        }
-      };
-
-      var applyBody = function () {
-        MathJax.Hub.Queue(["Typeset", MathJax.Hub, "topic"]);
-      };
-
       decorateCooked(container, applyBody);
       container.lookupFactory('view:composer').prototype.on("previewRefreshed", applyPreview);
-
     });
   }
-}
+};
