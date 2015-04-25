@@ -10,6 +10,7 @@ Installation
 * In development mode, run `bundle exec rake assets:clean`
 * In production, recompile your assets: `bundle exec rake assets:precompile`
 * Restart Discourse
+* In discourse go to: "Admin -> Settings -> MathJax plugin" and check "enable mathjax plugin."
 
 ## Installation on top of Docker image
 
