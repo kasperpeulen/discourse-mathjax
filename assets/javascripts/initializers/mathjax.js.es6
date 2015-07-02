@@ -27,7 +27,7 @@ export default {
     const siteSettings = container.lookup('site-settings:main');
     if (!siteSettings.enable_mathjax_plugin) { return; }
 
-    loadScript(siteSettings.mathjax_url + '?config=' + siteSettings.mathjax_config).then(function () {
+    loadScript(siteSettings.mathjax_url + '?config=' + siteSettings.mathjax_config, { scriptTag: true }).then(function () {
 
       MathJax.Hub.Config({
         "HTML-CSS": {
