@@ -27,7 +27,6 @@ add 'git clone https://github.com/kasperpeulen/discourse-mathjax' in the after_c
         - exec:
             cd: $home/plugins
             cmd:
-              - mkdir -p plugins
               - git clone https://github.com/kasperpeulen/discourse-mathjax
 
 Change directory to /var/docker and run `./launcher rebuild app`
