@@ -3,6 +3,8 @@ discourse-mathjax
 
 Mathjax plugin for [Discourse](http://discourse.org).
 
+Compatible with Discourse v1.5.0.beta13 or greater, uses Plugin-API 0.1.
+
 Installation
 ============
 
