@@ -19,46 +19,49 @@ function applyPreview() {
   }
 }
 
+function mathJaxConfig() {
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      displayMath: [
+        ["$$", "$$"],
+        ["\\[", "\\]"]
+      ],
+      processEscapes: true
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+}
+
 function oldCode(container) {
   const siteSettings = container.lookup('site-settings:main');
   if (!siteSettings.enable_mathjax_plugin) { return; }
 
   loadScript(siteSettings.mathjax_url + '?config=' + siteSettings.mathjax_config, { scriptTag: true }).then(function () {
-
-    MathJax.Hub.Config({
-      "HTML-CSS": {
-        preferredFont: "TeX",
-        availableFonts: ["TeX"],
-        linebreaks: {
-          automatic: true
-        },
-        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
-      },
-      tex2jax: {
-        inlineMath: [
-          ["$", "$"],
-          ["\\(", "\\)"]
-        ],
-        displayMath: [
-          ["$$", "$$"],
-          ["\\[", "\\]"]
-        ],
-        processEscapes: true
-      },
-      TeX: {
-        noUndefined: {
-          attributes: {
-            mathcolor: "red",
-            mathbackground: "#FFEEEE",
-            mathsize: "90%"
-          }
-        },
-        Macros: {
-          href: "{}"
-        }
-      },
-      messageStyle: "none"
-    });
+    mathJaxConfig();
 
     decorateCooked(container, applyBody);
     container.lookupFactory('view:composer').prototype.on("previewRefreshed", applyPreview);
