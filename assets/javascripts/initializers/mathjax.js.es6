@@ -3,11 +3,11 @@
 import { decorateCooked } from 'discourse/lib/plugin-api';
 import loadScript from 'discourse/lib/load-script';
 
-function applyBody() {
+function oldApplyBody() {
   MathJax.Hub.Queue(["Typeset", MathJax.Hub, "topic"]);
 }
 
-function applyPreview() {
+function oldApplyPreview() {
   MathJax.Hub.Queue(["Typeset", MathJax.Hub, "wmd-preview"]);
   // if the caret is on the last line ensure preview scrolled to bottom
   const caretPosition = Discourse.Utilities.caretPosition(this.wmdInput[0]);
@@ -63,8 +63,8 @@ function oldCode(container) {
   loadScript(siteSettings.mathjax_url + '?config=' + siteSettings.mathjax_config, { scriptTag: true }).then(function () {
     mathJaxConfig();
 
-    decorateCooked(container, applyBody);
-    container.lookupFactory('view:composer').prototype.on("previewRefreshed", applyPreview);
+    decorateCooked(container, oldApplyBody);
+    container.lookupFactory('view:composer').prototype.on("previewRefreshed", oldApplyPreview);
   });
 }
 
