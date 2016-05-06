@@ -76,7 +76,9 @@ function initializePlugin(api) {
 
   loadScript(siteSettings.mathjax_url + '?config=' + siteSettings.mathjax_config, { scriptTag: true }).then(function () {
     mathJaxConfig();
-    api.decorateCooked($html => MathJax.Hub.Queue(["Typeset", MathJax.Hub, $html[0]]));
+    api.decorateCooked($html =>
+                       $.each($html, (i, domNode) =>
+                              MathJax.Hub.Queue(["Typeset", MathJax.Hub, domNode])));
   });
 }
 
