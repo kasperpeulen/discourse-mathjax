@@ -5,12 +5,10 @@ import loadScript from 'discourse/lib/load-script';
 
 
 function initializePlugin(api){
-  api.decorateCooked(mathjaxDecorator);
-
   const siteSettings = api.container.lookup('site-settings:main');
   if (!siteSettings.enable_mathjax_plugin) { return; }
-  loadScript(siteSettings.mathjax_url + '?config=' + siteSettings.mathjax_config, { scriptTag: true }).then(function () {
 
+  loadScript(siteSettings.mathjax_url + '?config=' + siteSettings.mathjax_config, { scriptTag: true }).then(function () {
     MathJax.Hub.Config({
       "HTML-CSS": {
         preferredFont: "TeX",
@@ -45,7 +43,7 @@ function initializePlugin(api){
       },
       messageStyle: "none"
     });
-    mathjaxDecorator();
+    api.decorateCooked(mathjaxDecorator);
   });
 }
 
@@ -54,7 +52,7 @@ export default {
   after: 'inject-objects',
 
   initialize: function (container) {
-    withPluginApi('0.1', api => initializePlugin(api));
+    withPluginApi('0.5', initializePlugin);
   }
 };
 
