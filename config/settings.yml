@@ -4,7 +4,7 @@ mathjax_plugin:
     default: false
   mathjax_url:
     client: true
-    default: //cdn.mathjax.org/mathjax/latest/MathJax.js
+    default: //cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js
   mathjax_config:
     client: true
     default: TeX-AMS-MML_HTMLorMML
